@@ -1,4 +1,3 @@
--- db/schema.sql 
 
 DELIMITER $$
 
