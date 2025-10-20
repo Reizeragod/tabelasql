@@ -226,3 +226,13 @@ INSERT INTO revisoes (id_veiculo, data_revisao, km_revisao, km_proxima_revisao, 
 -- Revisão 2: Veículo 2, Consultor 5
 INSERT INTO revisoes (id_veiculo, data_revisao, km_revisao, km_proxima_revisao, consultor_responsavel, servicos_realizados, valor_servico) VALUES
 (2, '2025-10-05', 12000, 42000, 5, 'Check-up completo de suspensão.', 300.00);
+
+-- Consulta simples
+SELECT 
+    id_peca, 
+    nome_peca, 
+    estoque_atual
+FROM 
+    pecas
+ORDER BY 
+    id_peca;
