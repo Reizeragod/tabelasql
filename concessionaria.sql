@@ -1,13 +1,13 @@
--- 1. CRIAÇÃO DAS TABELAS ESTRUTURAIS 
+-- CRIAÇÃO DAS TABELAS ESTRUTURAIS 
 
--- 1.1 Tabela CARGOS 
+-- Tabela CARGOS 
 CREATE TABLE cargos (
     id_cargo INT AUTO_INCREMENT PRIMARY KEY,
     nome_cargo VARCHAR(100) NOT NULL UNIQUE,
     departamento VARCHAR(100) NOT NULL
 );
 
--- 1.2 Tabela CLIENTES 
+-- Tabela CLIENTES 
 CREATE TABLE clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     razao_social VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE clientes (
     email VARCHAR(255) UNIQUE
 );
 
--- 1.3 Tabela FORNECEDORES 
+-- Tabela FORNECEDORES 
 CREATE TABLE fornecedores (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     razao_social VARCHAR(255) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE fornecedores (
     email VARCHAR(255)
 );
 
--- 1.4 Tabela PROMOCOES_SAZONAIS 
+-- Tabela PROMOCOES_SAZONAIS 
 CREATE TABLE promocoes_sazonais (
     id_promocao INT AUTO_INCREMENT PRIMARY KEY,
     nome_promocao VARCHAR(150) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE promocoes_sazonais (
     status ENUM('Ativa', 'Inativa')
 );
 
--- 2.1 Tabela FUNCIONARIOS 
+-- Tabela FUNCIONARIOS 
 CREATE TABLE funcionarios (
     id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE funcionarios (
     FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo)
 );
 
--- 2.2 Tabela PEÇAS 
+-- Tabela PEÇAS 
 CREATE TABLE pecas (
     id_peca INT AUTO_INCREMENT PRIMARY KEY,
     nome_peca VARCHAR(255) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE pecas (
     localizacao_prateleira VARCHAR(50)
 );
 
--- 2.3 Tabela VEICULOS 
+-- Tabela VEICULOS 
 CREATE TABLE veiculos (
     id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
     placa VARCHAR(10) UNIQUE NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE veiculos (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
 );
 
--- 3.1 Tabela VENDAS 
+-- Tabela VENDAS 
 CREATE TABLE vendas (
     id_venda INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE vendas (
     FOREIGN KEY (id_promocao) REFERENCES promocoes_sazonais(id_promocao)
 );
 
--- 3.2 Tabela ITENS_VENDA 
+-- Tabela ITENS_VENDA 
 CREATE TABLE itens_venda (
     id_item_venda INT AUTO_INCREMENT PRIMARY KEY,
     id_venda INT NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE itens_venda (
     UNIQUE (id_venda, id_peca)
 );
 
--- 3.3 Tabela MOVIMENTACAO_ESTOQUE 
+-- Tabela MOVIMENTACAO_ESTOQUE 
 CREATE TABLE movimentacao_estoque (
     id_movimento INT AUTO_INCREMENT PRIMARY KEY,
     id_peca INT NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE movimentacao_estoque (
     FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id_fornecedor)
 );
 
--- 3.4 Tabela REVISOES 
+-- Tabela REVISOES 
 CREATE TABLE revisoes (
     id_revisao INT AUTO_INCREMENT PRIMARY KEY,
     id_veiculo INT NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE revisoes (
     FOREIGN KEY (consultor_responsavel) REFERENCES funcionarios(id_funcionario)
 );
 
--- 4.1. Cargos e Departamentos 
+-- Cargos e Departamentos 
 INSERT INTO cargos (nome_cargo, departamento) VALUES
 ('Gerente Geral', 'Gestão'), 
 ('Especialista de RH', 'RH'), 
@@ -146,7 +146,7 @@ INSERT INTO cargos (nome_cargo, departamento) VALUES
 ('Assistente de Estoque', 'Estoque'), 
 ('Recepcionista/Portaria', 'Portaria'); 
 
--- 4.2. Funcionários 
+-- Funcionários 
 INSERT INTO funcionarios (nome, sobrenome, cpf, data_contratacao, id_cargo, salario, status, porcentagem_comissao) VALUES
 ('Geraldo', 'Costa', '11122233344', '2015-01-10', 1, 15000.00, 'Ativo', 0.00),  -- ID 1: Gerente
 ('Julia', 'Almeida', '11122233355', '2020-03-01', 2, 5000.00, 'Ativo', 0.00),   -- ID 2: RH
@@ -159,12 +159,12 @@ INSERT INTO funcionarios (nome, sobrenome, cpf, data_contratacao, id_cargo, sala
 ('André', 'Oliveira', '88899900011', '2023-04-10', 8, 3500.00, 'Ativo', 0.00), -- ID 9: Assistente Estoque
 ('Carina', 'Gomes', '99900011122', '2022-09-01', 3, 6200.00, 'Ativo', 4.50);  -- ID 10: Vendedor Sênior
 
--- 4.3. Clientes 
+-- Clientes 
 INSERT INTO clientes (razao_social, cnpj, nome_contato, telefone, email) VALUES
 ('MS DIESEL LOGÍSTICA S.A.', '01.234.567/0001-89', 'Roberto Silva', '6733001100', 'contato@msdiesel.com'), -- ID 1
 ('TRANSPORTE RÁPIDO LTDA', '89.765.432/0001-50', 'Ana Paula', '6733001101', 'frota@transrapido.com');        -- ID 2
 
--- 4.4. Fornecedores 
+-- Fornecedores 
 INSERT INTO fornecedores (razao_social, cnpj, telefone, email) VALUES
 ('PEÇAS BRASIL S.A.', '10.000.000/0001-10', '1140001000', 'pecasbr@forne.com'),      -- ID 1
 ('PNEUS MASTER', '20.000.000/0001-20', '1140001001', 'pneusm@forne.com'),            -- ID 2
@@ -172,7 +172,7 @@ INSERT INTO fornecedores (razao_social, cnpj, telefone, email) VALUES
 ('FREIOS SEGUROS', '40.000.000/0001-40', '1140001003', 'freios@forne.com'),          -- ID 4
 ('ACESSÓRIOS LUXO', '50.000.000/0001-50', '1140001004', 'acessorios@forne.com');     -- ID 5
 
--- 4.5. Peças 
+-- Peças 
 INSERT INTO pecas (nome_peca, codigo_sku, preco_custo, preco_venda, estoque_atual, localizacao_prateleira) VALUES
 ('Filtro de Óleo - Volvo FH', 'FV001', 50.00, 95.00, 50, 'A1-01'),  -- ID 1
 ('Pastilha de Freio Dianteira', 'PFD05', 120.00, 250.00, 30, 'B2-05'), -- ID 2
@@ -180,17 +180,17 @@ INSERT INTO pecas (nome_peca, codigo_sku, preco_custo, preco_venda, estoque_atua
 ('Lâmpada Farol H4', 'LH002', 15.00, 35.00, 200, 'A1-05'),           -- ID 4
 ('Óleo Diesel 15W40 (Galão)', 'OD1540', 250.00, 450.00, 40, 'D4-10'); -- ID 5
 
--- 4.6. Promoções Sazonais
+-- Promoções Sazonais
 INSERT INTO promocoes_sazonais (nome_promocao, periodo_inicio, periodo_fim, tipo_desconto, valor_desconto, status) VALUES
 ('Natal das Peças', '2025-12-01', '2025-12-31', 'Porcentagem', 15.00, 'Ativa'),
 ('Festa Junina do Pneu', '2026-06-01', '2026-06-30', 'ValorFixo', 50.00, 'Inativa');
 
--- 4.7. Veículos 
+-- Veículos 
 INSERT INTO veiculos (placa, marca, modelo, ano, km_atual, id_cliente) VALUES
 ('ABC1A23', 'VOLVO', 'FH 540', 2024, 15000, 1), -- ID 1
 ('DEF4B56', 'VOLVO', 'FH 540', 2024, 12000, 1); -- ID 2
 
--- 4.8. Movimentação de Estoque 
+-- Movimentação de Estoque 
 -- Entrada: Peça 1 (Filtro) do Fornecedor 1, Responsável: Chefe Estoque (ID 7)
 INSERT INTO movimentacao_estoque (id_peca, tipo_movimento, quantidade, data_movimento, id_responsavel, id_fornecedor) VALUES
 (1, 'ENTRADA', 50, '2025-10-10 09:00:00', 7, 1); 
@@ -198,7 +198,7 @@ INSERT INTO movimentacao_estoque (id_peca, tipo_movimento, quantidade, data_movi
 INSERT INTO movimentacao_estoque (id_peca, tipo_movimento, quantidade, data_movimento, id_responsavel, id_fornecedor) VALUES
 (2, 'SAIDA', 5, '2025-10-15 14:30:00', 9, NULL); 
 
--- 4.9. Vendas
+-- Vendas
 -- Venda 1: Cliente 1 para o Vendedor 3 - Venda Grande
 INSERT INTO vendas (id_cliente, id_vendedor, data_venda, valor_total, id_promocao) VALUES
 (1, 3, '2025-10-17 10:00:00', 1700.00, 1); -- ID 1: Usando Promoção Natal
@@ -207,7 +207,7 @@ INSERT INTO vendas (id_cliente, id_vendedor, data_venda, valor_total, id_promoca
 INSERT INTO vendas (id_cliente, id_vendedor, data_venda, valor_total, id_promocao) VALUES
 (2, 4, '2025-10-17 11:30:00', 350.00, NULL); -- ID 2: Sem Promoção
 
--- 4.10. Itens de Venda 
+-- Itens de Venda 
 -- Itens da Venda 1
 INSERT INTO itens_venda (id_venda, id_peca, quantidade, preco_unitario_vendido) VALUES
 (1, 3, 1, 1500.00), -- 1 Pneu
@@ -218,7 +218,7 @@ INSERT INTO itens_venda (id_venda, id_peca, quantidade, preco_unitario_vendido) 
 (2, 2, 1, 250.00), -- 1 Pastilha
 (2, 4, 3, 35.00);  -- 3 Lâmpadas
 
--- 4.11. Revisões 
+-- Revisões 
 -- Revisão 1: Veículo 1, Consultor 5 
 INSERT INTO revisoes (id_veiculo, data_revisao, km_revisao, km_proxima_revisao, consultor_responsavel, servicos_realizados, valor_servico) VALUES
 (1, '2025-09-01', 15000, 45000, 5, 'Troca de Óleo, Filtros e Alinhamento.', 850.00);
@@ -236,3 +236,14 @@ FROM
     pecas
 ORDER BY 
     id_peca;
+-- Novo Cargo
+INSERT INTO cargos (nome_cargo, departamento) VALUES
+('Auxiliar Administrativo', 'Administrativo'); -- ID 10
+
+-- Novo Funcionário (Auxiliar Administrativo)
+INSERT INTO funcionarios (nome, sobrenome, cpf, data_contratacao, id_cargo, salario, status, porcentagem_comissao) VALUES
+('Fernando', 'Neves', '00011122233', '2025-01-01', 10, 2800.00, 'Ativo', 0.00); -- ID 11
+
+-- Nova Peça
+INSERT INTO pecas (nome_peca, codigo_sku, preco_custo, preco_venda, estoque_atual, localizacao_prateleira) VALUES
+('Retentor de Eixo', 'RE003', 85.00, 150.00, 75, 'B2-10'); -- ID 6
